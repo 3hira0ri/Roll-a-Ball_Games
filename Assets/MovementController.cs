@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class MovementController : MonoBehaviour
 {
+    public CameraController camera;
+    public GameObject Cube, Sphere;
+    GameObject Player;
     public int score = 0;
-    Rigidbody body;
+    Rigidbody body, body2;
     public float moveUP = 250f;
     public float moveF = 30f;
     float x = 0;
@@ -23,15 +26,16 @@ public class MovementController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        body = GetComponent<Rigidbody>();
-        
+        Cube.SetActive(false);
+        Player = Sphere;
+        body = Player.GetComponent<Rigidbody>();
+        camera.player = Player;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
             body.AddForce(x,y,z);
-       
     }
     void Update()
     {
@@ -62,6 +66,26 @@ public class MovementController : MonoBehaviour
         {
             x=-moveF;
         }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            if(Player == Sphere) {
+                Cube.SetActive(true);
+                Cube.transform.position = Sphere.transform.position;
+                Sphere.SetActive(false);
+                Player = Cube;
+                body = Player.GetComponent<Rigidbody>();
+                camera.player = Player;
+            }
+            else
+            {
+                Sphere.transform.position = Cube.transform.position;
+                Cube.SetActive(false);
+                Sphere.SetActive(true);
+                Player = Sphere;
+                body = Player.GetComponent<Rigidbody>();
+                camera.player = Player;
+            }
 
+        }
     }
 }

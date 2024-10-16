@@ -17,11 +17,11 @@ public class rotate : MonoBehaviour
 
         float stopnie = transform.eulerAngles.x;
         
-        if (stopnie<0 & (stopnie >= 15 | stopnie >= 345))
+        if (stopnie > 15 && stopnie < 345 && !flago)
         {
             flagax = true;
         }
-        if (stopnie >= 0 & stopnie <= 15)
+        if (stopnie >= 0 && stopnie <= 345 && flago)
         {
             flagax = false;
         }
@@ -36,9 +36,16 @@ public class rotate : MonoBehaviour
             Debug.Log("tyl");
             transform.Rotate(new Vector3(-degreesPerSecond, 0, 0) * Time.deltaTime);
         }
-        if (3<=stopnie & stopnie >= -3)
+        if (2<=stopnie & stopnie >= -2)
         {
-            flago = true;
+            if (flago)
+            {
+                flago = true;
+            }else
+            {
+                flago = false;
+            }
+
         }
             //y
             /*if (transform.rotation.y <= 0)
@@ -74,7 +81,7 @@ public class rotate : MonoBehaviour
              {
                  transform.Rotate( 0, 0, -12.0f * 2 * Time.deltaTime, Space.World);
              }*/
-            Debug.Log("FLaga: "+flagax+"Flaga2: "+flago+" koordynaty wynosz¹ " + stopnie + " " + transform.rotation.y + " " + transform.rotation.z);
+            Debug.Log("FLaga: "+flagax+flago+" koordynaty wynosz¹ " + stopnie + " " + transform.rotation.y + " " + transform.rotation.z);
     }
     // Update is called once per frame
     void Update()
