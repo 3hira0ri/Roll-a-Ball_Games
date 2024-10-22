@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class MovementController : MonoBehaviour
 {
+    public GameObject NextLevelButton;
+    public Text TextScore;
+    public Text WinText;
     public CameraController camera;
     public GameObject Cube, Sphere;
     GameObject Player;
@@ -17,10 +20,14 @@ public class MovementController : MonoBehaviour
     public void Whatscore()
     {
         score += 1;
-        Debug.Log("zdobyles " + score + " punktow");
+        TextScore.text = "Score: " + score;
         if(score >= 8)
         {
-            Debug.Log("Zdobyles wszystkie punkty (nie jest to zbyt duze wyzwanie");
+           WinText.gameObject.SetActive(true);
+           TextScore.gameObject.SetActive(false);
+           body.isKinematic = true;
+            NextLevelButton.SetActive(true );
+           Debug.Log("Zdobyles wszystkie punkty (nie jest to zbyt duze wyzwanie");
         }
     }
     // Start is called before the first frame update
