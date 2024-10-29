@@ -1,79 +1,44 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 public class MovementController : MonoBehaviour
 {
-    public GameObject NextLevelButton;
-    public Text TextScore;
-    public Text WinText;
-    public CameraController camera;
-    public GameObject Cube, Sphere;
+
+    public CameraController Kamera;
+    public GameObject Sphere;
     GameObject Player;
-    public int score = 0;
-    Rigidbody body, body2;
+    Rigidbody body;
     public float moveUP = 250f;
-    public float moveF = 30f;
-    float x = 0;
-    float y = 0;
-    float z = 0;
+    public float moveF = 4f;
+    float timerJump;
+    Vector3 moveDirection;
+    public GameObject GameMaster;
+    private void Awake()
+    {
+        timerJump = Time.unscaledTime;
+    }
     public void Whatscore()
     {
-        score += 1;
-        TextScore.text = "Score: " + score;
-        if(score >= 8)
-        {
-           WinText.gameObject.SetActive(true);
-           TextScore.gameObject.SetActive(false);
-           body.isKinematic = true;
-            NextLevelButton.SetActive(true );
-           Debug.Log("Zdobyles wszystkie punkty (nie jest to zbyt duze wyzwanie");
-        }
+        GameMaster.GetComponent<NextLevel>().GiveScore();
     }
     // Start is called before the first frame update
     void Start()
     {
-        Cube.SetActive(false);
         Player = Sphere;
         body = Player.GetComponent<Rigidbody>();
-        camera.player = Player;
+        Kamera.player = Player;
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-            body.AddForce(x,y,z);
+        body.AddForce(moveDirection);
     }
     void Update()
     {
-        x = 0;
-        y = 0;
-        z = 0;
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (transform.position.y <= 0.5)
-            {
-                y += moveUP;
-            }
-
-        }
-        if (Input.GetKey(KeyCode.W))
-        {
-            z += moveF;
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            z+= -moveF;
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-           x=moveF;
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            x=-moveF;
-        }
-        if (Input.GetKeyDown(KeyCode.F))
+        movement();
+       /* if (Input.GetKeyDown(KeyCode.F))
         {
             if(Player == Sphere) {
                 Cube.SetActive(true);
@@ -93,6 +58,28 @@ public class MovementController : MonoBehaviour
                 camera.player = Player;
             }
 
+        }*/
+    }
+    void movement()
+    {
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+        Vector3 forward = Kamera.transform.forward;
+        Vector3 right = Kamera.transform.right;
+        float czas = Time.unscaledTime;
+        if (Input.GetKeyDown(KeyCode.Space) && czas - timerJump > 1f)
+        {
+            forward.y = +moveUP;
+            timerJump = Time.unscaledTime;
         }
+        else
+        {
+            forward.y = 0;
+            right.y = 0;
+        }
+
+        moveDirection = (forward * vertical + right * horizontal) * moveF;
+
+        
     }
 }
