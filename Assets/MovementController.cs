@@ -7,6 +7,7 @@ using System;
 using UnityEngine.UIElements;
 public class MovementController : MonoBehaviour
 {
+    public ParticleSystem sprintParticles;
     public AudioSource AudioSource;
     public event Action pickupEvent;
     public CameraController Kamera;
@@ -24,14 +25,14 @@ public class MovementController : MonoBehaviour
     {
         timerJump = Time.unscaledTime;
     }
-    // Start is called before the first frame update
+
     void Start()
     {
         body = GetComponent<Rigidbody>();
         AudioSource = GetComponent<AudioSource>();
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         body.AddForce(moveDirection);
     }
@@ -44,9 +45,15 @@ public class MovementController : MonoBehaviour
         float currentMoveF = moveF;
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-        Vector3 forward = Kamera.transform.forward.normalized;
-        Vector3 right = Kamera.transform.right.normalized;
+        Vector3 forward = Kamera.transform.forward;
+        forward.y = 0; // Wyzerowanie komponentu Y
+        forward = forward.normalized; // Normalizacja, aby zachowaæ poprawny kierunek
+
+        Vector3 right = Kamera.transform.right;
+        right.y = 0; // Wyzerowanie komponentu Y
+        right = right.normalized; // Normalizacja
         float czas = Time.unscaledTime;
+        Vector3 movement = new Vector3(0, 0.0f, 0);
         if (Input.GetKeyDown(KeyCode.Space) && czas - timerJump > 1f)
         {
             body.AddForce(Vector3.up * moveUP, ForceMode.Impulse);
@@ -55,13 +62,19 @@ public class MovementController : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift))
         {
             currentMoveF *= sprintMultiplier;
+            HandleSprintParticles(true);
+        }
+        else
+        {
+            HandleSprintParticles(false); // Gracz nie sprintuje
         }
         // Sprawdzanie nachylenia powierzchni pod kulk¹
         RaycastHit hit;
+
         if (Physics.Raycast(transform.position, Vector3.down, out hit, 1.1f))
         {
             float slopeAngle = Vector3.Angle(hit.normal, Vector3.up);
-            if (slopeAngle < 60f) // Dostosuj k¹t w zale¿noœci od potrzeb
+            if (slopeAngle < 60f) 
             {
                 // Mo¿na siê poruszaæ tylko, gdy k¹t jest mniejszy ni¿ 45 stopni
                 moveDirection = (forward * vertical + right * horizontal) * currentMoveF;
@@ -105,5 +118,22 @@ public class MovementController : MonoBehaviour
     public void respawn()
     {
         transform.position = new Vector3(510.570007f, 0.5f, 972.200012f);
+    }
+    void HandleSprintParticles(bool isSpringing)
+    {
+        if (isSpringing)
+        {
+            if (!sprintParticles.isPlaying)
+            {
+                sprintParticles.Play(); // W³¹cz cz¹steczki, jeœli gracz sprintuje
+            }
+        }
+        else
+        {
+            if (sprintParticles.isPlaying)
+            {
+                sprintParticles.Stop(); // Wy³¹cz cz¹steczki, jeœli gracz nie sprintuje
+            }
+        }
     }
 }
