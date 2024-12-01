@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System;
 public class Collectible : MonoBehaviour
 {
-   public AudioSource AudioSource;
+    public AudioSource AudioSource;
+    public event Action PickUpEvent;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +24,7 @@ public class Collectible : MonoBehaviour
     }
     private void OnTriggerEnter(Collider colider)
     {
-        colider.gameObject.GetComponent<MovementController>().Whatscore();
+        PickUpEvent?.Invoke();
         Invoke("turnoff", 1f);
         AudioSource.Play();
         GetComponent<MeshRenderer>().enabled = false;

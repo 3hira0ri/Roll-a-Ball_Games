@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static UnityEditor.Timeline.TimelinePlaybackControls;
 using UnityEngine.SocialPlatforms.Impl;
-
+using Unity.VisualScripting;
 public class NextLevel : MonoBehaviour
 {
     public GameObject NextLevelButton, scorescounter;
@@ -11,9 +11,21 @@ public class NextLevel : MonoBehaviour
     public Text WinText;
     public int score = 0;
     public Rigidbody body;
+    public GameObject Finished;
+    public int neededScore;
+    public GameObject[] collectible;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+       collectible = GameObject.FindGameObjectsWithTag("Collectible");
+        foreach (var score in collectible)
+        {
+            score.GetComponent<Collectible>().PickUpEvent += GiveScore;
+        }
+
+        neededScore = scorescounter.transform.childCount;
+
+        
     }
     public void GiveScore()
     {
@@ -27,7 +39,11 @@ public class NextLevel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (score >= scorescounter.transform.childCount)
+        Scored();
+    }
+    void Scored()
+    {
+        if (score >= neededScore && !Finished.active)
         {
             TextScore.text = "Score: " + score;
             WinText.gameObject.SetActive(true);

@@ -264,6 +264,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6465004564878833314, guid: 1c4e7f24e0572b54195cea20350301de, type: 3}
   m_PrefabInstance: {fileID: 732712230}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &302693310 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6318721338940030034, guid: 1c4e7f24e0572b54195cea20350301de, type: 3}
+  m_PrefabInstance: {fileID: 5372555711135902225}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &357321177 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6465004564878833314, guid: 1c4e7f24e0572b54195cea20350301de, type: 3}
@@ -798,6 +803,8 @@ MonoBehaviour:
   WinText: {fileID: 954365870}
   score: 0
   body: {fileID: 661448294071860166}
+  Finished: {fileID: 302693310}
+  neededScore: 0
 --- !u!4 &1570255618
 Transform:
   m_ObjectHideFlags: 0
@@ -1160,6 +1167,10 @@ PrefabInstance:
       propertyPath: NextLevelButton
       value: 
       objectReference: {fileID: 135677530}
+    - target: {fileID: 34268023136545644, guid: d64bd2857abec474ca4c46d177dfa87b, type: 3}
+      propertyPath: sprintMultiplier
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1341217368997560296, guid: d64bd2857abec474ca4c46d177dfa87b, type: 3}
       propertyPath: m_Drag
       value: 2
@@ -1241,6 +1252,10 @@ PrefabInstance:
     - target: {fileID: 2134594149168955111, guid: 93c08a1ea72b31c4783ecb842f4e6d84, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3841730932671304168, guid: 93c08a1ea72b31c4783ecb842f4e6d84, type: 3}
+      propertyPath: m_FontData.m_Alignment
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6565555329207877952, guid: 93c08a1ea72b31c4783ecb842f4e6d84, type: 3}
       propertyPath: m_Pivot.x
