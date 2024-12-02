@@ -3,11 +3,11 @@ using UnityEngine;
 public class firework : MonoBehaviour
 {
     [SerializeField] GameObject ammo;
-    float speed = 45f;
+    float speed = 300;
     public static firework Instance { get; private set; }
         private void Awake()
         {
-            Invoke("DestroyFirework", 3);
+            Invoke("DestroyFirework", 1);
         }
     void DestroyFirework()
     {
@@ -16,7 +16,7 @@ public class firework : MonoBehaviour
 
        
 
-        Destroy(this.gameObject,0.5f);
+        Destroy(this.gameObject,0.4f);
     }
     void FixedUpdate()
     {

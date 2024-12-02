@@ -11,7 +11,7 @@ public class shoot : MonoBehaviour
     void Start()
     {
         
-        InvokeRepeating("SpawnAmmo", 0, 2.5f);
+        InvokeRepeating("SpawnAmmo", 0, 1f);
         
     }
     void SpawnAmmo()
