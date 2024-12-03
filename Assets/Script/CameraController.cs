@@ -49,10 +49,8 @@ public class CameraController : MonoBehaviour
             if (LookAtPlayer)
             {
                 // Ustawienie, aby kamera by³a skierowana w stronê celu
-                transform.LookAt(player.transform);
-                Debug.Log("Wektor  " + transform.rotation);
+                transform.LookAt(player.transform);  
                 wektor2 = Quaternion.Inverse(transform.rotation);
-                Debug.Log("Wektor2222222  " + wektor2);
                 transform.rotation = wektor2;
             }
         }

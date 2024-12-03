@@ -22,6 +22,7 @@ public class Czas : MonoBehaviour
             startTime = Time.fixedUnscaledTime;
             isTimerRunning = true;
         }
+
     }
     private void FixedUpdate()
     {

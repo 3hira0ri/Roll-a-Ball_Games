@@ -673,6 +673,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ammo: {fileID: 1815457716235557885, guid: eaeb4a554cf041947b356e872be17a17, type: 3}
   flash: {fileID: 1810510762}
+  delay: 0
 --- !u!136 &102843997
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1665,6 +1666,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ammo: {fileID: 1815457716235557885, guid: eaeb4a554cf041947b356e872be17a17, type: 3}
   flash: {fileID: 20778160}
+  delay: 0
 --- !u!136 &407604014
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3312,6 +3314,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ammo: {fileID: 1815457716235557885, guid: eaeb4a554cf041947b356e872be17a17, type: 3}
   flash: {fileID: 767135103}
+  delay: 0
 --- !u!136 &1144314754
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3690,6 +3693,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ammo: {fileID: 1815457716235557885, guid: eaeb4a554cf041947b356e872be17a17, type: 3}
   flash: {fileID: 2059217979}
+  delay: 0
 --- !u!1 &1289031856
 GameObject:
   m_ObjectHideFlags: 0
@@ -4469,6 +4473,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ammo: {fileID: 1815457716235557885, guid: eaeb4a554cf041947b356e872be17a17, type: 3}
   flash: {fileID: 211595014}
+  delay: 0
 --- !u!136 &1601606481
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4667,6 +4672,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ammo: {fileID: 1815457716235557885, guid: eaeb4a554cf041947b356e872be17a17, type: 3}
   flash: {fileID: 228312141}
+  delay: 0
 --- !u!136 &1680533811
 CapsuleCollider:
   m_ObjectHideFlags: 0
