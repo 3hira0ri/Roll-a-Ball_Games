@@ -1,0 +1,11 @@
+Model Information:
+* title:	Arrow-pointer
+* source:	https://sketchfab.com/3d-models/arrow-pointer-6e76d845aba440ed816e798d98bb17dd
+* author:	richard323 (https://sketchfab.com/richard323)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Arrow-pointer" (https://sketchfab.com/3d-models/arrow-pointer-6e76d845aba440ed816e798d98bb17dd) by richard323 (https://sketchfab.com/richard323) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

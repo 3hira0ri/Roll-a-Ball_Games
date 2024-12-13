@@ -1,0 +1,11 @@
+Model Information:
+* title:	Tower
+* source:	https://sketchfab.com/3d-models/tower-0efcc389b3744effab8c83c4c6ccdb05
+* author:	AVATAR WORLD (https://sketchfab.com/lofiMetaverse)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Tower" (https://sketchfab.com/3d-models/tower-0efcc389b3744effab8c83c4c6ccdb05) by AVATAR WORLD (https://sketchfab.com/lofiMetaverse) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

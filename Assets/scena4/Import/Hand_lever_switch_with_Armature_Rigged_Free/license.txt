@@ -1,0 +1,11 @@
+Model Information:
+* title:	Hand lever switch with Armature/Rigged Free
+* source:	https://sketchfab.com/3d-models/hand-lever-switch-with-armaturerigged-free-46aab0d50f574a629ef2d4886d71f55c
+* author:	AMMediaGames (https://sketchfab.com/AMMediaGames)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Hand lever switch with Armature/Rigged Free" (https://sketchfab.com/3d-models/hand-lever-switch-with-armaturerigged-free-46aab0d50f574a629ef2d4886d71f55c) by AMMediaGames (https://sketchfab.com/AMMediaGames) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

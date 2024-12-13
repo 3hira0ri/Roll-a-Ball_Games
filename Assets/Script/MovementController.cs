@@ -1,7 +1,7 @@
 using UnityEngine;
 public class MovementController : MonoBehaviour
 {
-    [SerializeField] ParticleSystem SprintParticles;
+    [SerializeField] ParticleSystem SprintParticles = null;
     [SerializeField] AudioSource AudioSource;
     GameObject _playerCamera;
     Rigidbody _body;
@@ -58,11 +58,17 @@ public class MovementController : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift))
         {
             currentMoveF *= SprintMultiplier;
-            HandleSprintParticles(true);
+            if (SprintParticles)
+            {
+                HandleSprintParticles(true);
+            }
         }
         else
         {
-            HandleSprintParticles(false);
+            if (SprintParticles)
+            {
+                HandleSprintParticles(false);
+            }
         }
         RaycastHit hit;
 

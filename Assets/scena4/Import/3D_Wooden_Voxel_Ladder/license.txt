@@ -1,0 +1,11 @@
+Model Information:
+* title:	3D Wooden Voxel Ladder
+* source:	https://sketchfab.com/3d-models/3d-wooden-voxel-ladder-b569fd2887a8414daa511b7959f7656b
+* author:	Shahzaib-Sohail (https://sketchfab.com/Shahzaib-Sohail)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "3D Wooden Voxel Ladder" (https://sketchfab.com/3d-models/3d-wooden-voxel-ladder-b569fd2887a8414daa511b7959f7656b) by Shahzaib-Sohail (https://sketchfab.com/Shahzaib-Sohail) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
