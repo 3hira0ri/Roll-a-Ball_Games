@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.4157614, g: 0.4339623, b: 0, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: f15c336556dd74f40aaca655f7767970, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -216,83 +216,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 131.6, y: -213.3, z: -145.38501}
---- !u!1001 &308641143
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1956841111820000824, guid: 5061bc98dcab4cbca9007b3ac809fd45, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1440
-      objectReference: {fileID: 0}
-    - target: {fileID: 1956841111820000824, guid: 5061bc98dcab4cbca9007b3ac809fd45, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1440
-      objectReference: {fileID: 0}
-    - target: {fileID: 1956841112465270849, guid: 5061bc98dcab4cbca9007b3ac809fd45, type: 3}
-      propertyPath: m_Name
-      value: Sky 1 (Red)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1956841112465270854, guid: 5061bc98dcab4cbca9007b3ac809fd45, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1956841112465270854, guid: 5061bc98dcab4cbca9007b3ac809fd45, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1956841112465270854, guid: 5061bc98dcab4cbca9007b3ac809fd45, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1956841112465270854, guid: 5061bc98dcab4cbca9007b3ac809fd45, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 507
-      objectReference: {fileID: 0}
-    - target: {fileID: 1956841112465270854, guid: 5061bc98dcab4cbca9007b3ac809fd45, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -145
-      objectReference: {fileID: 0}
-    - target: {fileID: 1956841112465270854, guid: 5061bc98dcab4cbca9007b3ac809fd45, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 510
-      objectReference: {fileID: 0}
-    - target: {fileID: 1956841112465270854, guid: 5061bc98dcab4cbca9007b3ac809fd45, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1956841112465270854, guid: 5061bc98dcab4cbca9007b3ac809fd45, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1956841112465270854, guid: 5061bc98dcab4cbca9007b3ac809fd45, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1956841112465270854, guid: 5061bc98dcab4cbca9007b3ac809fd45, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1956841112465270854, guid: 5061bc98dcab4cbca9007b3ac809fd45, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1956841112465270854, guid: 5061bc98dcab4cbca9007b3ac809fd45, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1956841112465270854, guid: 5061bc98dcab4cbca9007b3ac809fd45, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 5061bc98dcab4cbca9007b3ac809fd45, type: 3}
 --- !u!1 &435331061
 GameObject:
   m_ObjectHideFlags: 0
@@ -1484,6 +1407,10 @@ MonoBehaviour:
   MoveUP: 20
   MoveF: 300
   SprintMultiplier: 2
+  interactionDistance: 2
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!54 &1341217369021245377
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1882,7 +1809,6 @@ SceneRoots:
   - {fileID: 1797554810}
   - {fileID: 2144287892}
   - {fileID: 1657894576}
-  - {fileID: 308641143}
   - {fileID: 435331063}
   - {fileID: 1311141597}
   - {fileID: 3222321442746396581}

@@ -4,90 +4,90 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    private GameObject player;
-    public float distance = 5.0f; // Pocz¹tkowa odleg³oœæ kamery od celu
-    public float sensitivity = 2.0f; // Czu³oœæ obrotu kamery
-    public float minYAngle = -20f; // Minimalny k¹t pionowy kamery
-    public float maxYAngle = 80f; // Maksymalny k¹t pionowy kamery
-    public bool LookAtPlayer = true, inverse = false;
-    private float currentX = 0f;
-    private float currentY = 20f;
-
-    Vector3 wektor;
-    Quaternion wektor2;
-    void Start()
+    public enum CameraMode
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        wektor = transform.position - player.transform.position;
+        ThirdPerson,
+        FirstPerson
+    }
+
+    [Header("Camera Settings")]
+    public CameraMode SelectedMode = CameraMode.ThirdPerson; // Wybór trybu kamery w edytorze
+
+    private GameObject _player;
+
+    [Header("Third-Person Settings")]
+    public float Distance = 5.0f; // Odleg³oœæ kamery od gracza w trybie trzecioosobowym
+    public float Sensitivity = 2.0f; // Czu³oœæ obrotu kamery
+    public float MinYAngle = -20f; // Minimalny k¹t pionowy kamery
+    public float MaxYAngle = 120f; // Maksymalny k¹t pionowy kamery
+    public bool LookAtPlayer = true;
+
+    [Header("First-Person Settings")]
+    public Vector3 FirstPersonOffset = new Vector3(0f, 1.6f, 0f); // Offset kamery w trybie pierwszoosobowym
+
+    private float _currentX = 0f;
+    private float _currentY = 20f;
+
+    private void Start()
+    {
+        _player = GameObject.FindGameObjectWithTag("Player");
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-
     }
-
 
     private void LateUpdate()
     {
-        if (inverse)
+        if (SelectedMode == CameraMode.FirstPerson)
         {
-            Vector3 direction = wektor;
-            Quaternion rotation = Quaternion.Euler(0, -currentX, 0);
-            Vector3 desiredPosition = player.transform.position + rotation * direction;
+            HandleFirstPersonCamera();
+        }
+        else if (SelectedMode == CameraMode.ThirdPerson)
+        {
+            HandleThirdPersonCamera();
+        }
+    }
 
-            // Sprawdzenie kolizji za pomoc¹ Raycast
-            RaycastHit hit;
-            if (Physics.Raycast(player.transform.position, desiredPosition - player.transform.position, out hit, distance))
-            {
-                // Jeœli promieñ trafia w przeszkodê, ustaw kamerê przed przeszkod¹
-                transform.position = player.transform.position + (desiredPosition - player.transform.position).normalized * (hit.distance - 0.1f);
-            }
-            else
-            {
-                // Jeœli nie ma kolizji, ustaw kamerê na po¿¹danej pozycji
-                transform.position = desiredPosition;
-            }
-            if (LookAtPlayer)
-            {
-                // Ustawienie, aby kamera by³a skierowana w stronê celu
-                transform.LookAt(player.transform);  
-                wektor2 = Quaternion.Inverse(transform.rotation);
-                transform.rotation = wektor2;
-            }
+    private void Update()
+    {
+        // Pobieranie danych z ruchu myszy
+        _currentX += Input.GetAxis("Mouse X") * Sensitivity;
+        _currentY -= Input.GetAxis("Mouse Y") * Sensitivity;
+
+        // Ograniczenie k¹ta pionowego kamery
+        _currentY = Mathf.Clamp(_currentY, MinYAngle, MaxYAngle);
+    }
+
+    private void HandleFirstPersonCamera()
+    {
+        // Kamera umieszczona w pozycji gracza z offsetem
+        transform.position = _player.transform.position + FirstPersonOffset;
+        transform.rotation = Quaternion.Euler(_currentY, _currentX, 0);
+    }
+
+    private void HandleThirdPersonCamera()
+    {
+        Vector3 direction = new Vector3(0, 0, -Distance);
+        Quaternion rotation = Quaternion.Euler(_currentY, _currentX, 0);
+        Vector3 desiredPosition = _player.transform.position + rotation * direction;
+
+        // Sprawdzenie kolizji za pomoc¹ Raycast
+        RaycastHit hit;
+        if (Physics.Raycast(_player.transform.position, desiredPosition - _player.transform.position, out hit, Distance))
+        {
+            // Jeœli promieñ trafia w przeszkodê, ustaw kamerê przed przeszkod¹
+            transform.position = _player.transform.position + (desiredPosition - _player.transform.position).normalized * (hit.distance - 0.1f);
         }
         else
         {
-            Vector3 direction = new Vector3(0, 0, -distance);
-            Quaternion rotation = Quaternion.Euler(currentY, currentX, 0);
-            Vector3 desiredPosition = player.transform.position + rotation * direction;
-
-            // Sprawdzenie kolizji za pomoc¹ Raycast
-            RaycastHit hit;
-            if (Physics.Raycast(player.transform.position, desiredPosition - player.transform.position, out hit, distance))
-            {
-                // Jeœli promieñ trafia w przeszkodê, ustaw kamerê przed przeszkod¹
-                transform.position = player.transform.position + (desiredPosition - player.transform.position).normalized * (hit.distance - 0.1f);
-            }
-            else
-            {
-                // Jeœli nie ma kolizji, ustaw kamerê na po¿¹danej pozycji
-                transform.position = desiredPosition;
-            }
-            if (LookAtPlayer)
-            {
-                // Ustawienie, aby kamera by³a skierowana w stronê celu
-                transform.LookAt(player.transform);
-
-            }
+            // Jeœli nie ma kolizji, ustaw kamerê na po¿¹danej pozycji
+            transform.position = desiredPosition;
         }
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        // Pobieranie danych z ruchu myszy
-        currentX += Input.GetAxis("Mouse X") * sensitivity;
-        currentY -= Input.GetAxis("Mouse Y") * sensitivity;
 
-        // Ograniczenie k¹ta pionowego kamery
-        currentY = Mathf.Clamp(currentY, minYAngle, maxYAngle);
+        if (LookAtPlayer)
+        {
+            // Ustawienie, aby kamera by³a skierowana w stronê gracza
+            transform.LookAt(_player.transform);
+        }
     }
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+
 public class MovementController : MonoBehaviour
 {
     [SerializeField] ParticleSystem SprintParticles = null;
@@ -10,7 +11,11 @@ public class MovementController : MonoBehaviour
     float _timerJump;
     Vector3 _moveDirection;
     [SerializeField] float SprintMultiplier = 2.5f;
-   // [SerializeField] AudioClip Died;
+    [SerializeField] private float _interactionDistance = 2.0f; // Maksymalna odległość interakcji
+    [SerializeField] private LayerMask _interactableLayer;      // Warstwa dla obiektów interaktywnych
+    [Header("Ladder Settings")]
+    [SerializeField] private float ladderClimbSpeed = 5.0f;    // Prędkość wspinaczki po drabinie
+    private bool isOnLadder = false;                          // Czy gracz jest na drabinie
 
     void Awake()
     {
@@ -26,35 +31,68 @@ public class MovementController : MonoBehaviour
 
     void FixedUpdate()
     {
-        _body.AddForce(_moveDirection);
+        if (!isOnLadder)
+        {
+            // Dodawaj tylko siłę odpowiadającą za ruch poziomy
+            Vector3 horizontalMovement = new Vector3(_moveDirection.x, 0, _moveDirection.z);
+            _body.AddForce(horizontalMovement, ForceMode.Acceleration);
+        }
     }
+
     void Update()
     {
-        movement();
+        if (isOnLadder)
+        {
+            ClimbLadder();
+        }
+        else
+        {
+            movement();
+        }
+
+        if (Input.GetKeyDown(KeyCode.E)) // Klawisz interakcji (E)
+        {
+            TryInteract();
+        }
+        if (Input.GetKeyDown(KeyCode.I)) // Klawisz Ekwipunku (I)
+        {
+            if (!Cursor.visible)
+            {
+                
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.Confined;
+            }
+            else
+            {
+               
+                Cursor.visible = false; 
+                Cursor.lockState = CursorLockMode.Confined;
+            }
+        }
     }
+
+    void Rotation()
+    {
+        Vector3 forward = _playerCamera.transform.forward;
+        forward.y = 0;
+        forward = forward.normalized;
+        transform.forward = forward;
+    }
+
     void movement()
     {
+        Rotation();
         float currentMoveF = MoveF;
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
         Vector3 forward = _playerCamera.transform.forward;
-        forward.y = 0; 
-        forward = forward.normalized; 
+        forward.y = 0;
+        forward = forward.normalized;
 
         Vector3 right = _playerCamera.transform.right;
-        right.y = 0; 
+        right.y = 0;
         right = right.normalized;
-        float czas = Time.unscaledTime;
-        Vector3 up = new Vector3(0, 1, 0);
-        if (Input.GetKeyDown(KeyCode.Space) && czas - _timerJump > 1f)
-        {
-            up = up * MoveUP;
-            _timerJump = Time.unscaledTime;
-        }
-        else
-        {
-            up = new Vector3();
-        }
+
         if (Input.GetKey(KeyCode.LeftShift))
         {
             currentMoveF *= SprintMultiplier;
@@ -70,23 +108,40 @@ public class MovementController : MonoBehaviour
                 HandleSprintParticles(false);
             }
         }
-        RaycastHit hit;
 
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, 1.1f))
+        // Ustaw ruch poziomy
+        _moveDirection = (forward * vertical + right * horizontal) * currentMoveF;
+
+        // Obsługa skoku
+        if (Input.GetKeyDown(KeyCode.Space) && Time.unscaledTime - _timerJump > 0.3f && IsGrounded())
         {
-            float slopeAngle = Vector3.Angle(hit.normal, Vector3.up);
-            if (slopeAngle < 60f) 
+            _body.AddForce(Vector3.up * MoveUP, ForceMode.Impulse);
+            _timerJump = Time.unscaledTime;
+        }
+    }
+
+    bool IsGrounded()
+    {
+        return Physics.Raycast(transform.position, Vector3.down, 1.1f, LayerMask.GetMask("Ground"));
+    }
+
+    private void TryInteract()
+    {
+        Ray ray = new Ray(_playerCamera.transform.position, _playerCamera.transform.forward); // Tworzymy raycast w kierunku przedmiotu
+        Debug.DrawRay(_playerCamera.transform.position, _playerCamera.transform.forward * _interactionDistance, Color.green); // Dla debugowania
+        
+        // Sprawdzamy, czy przedmiot w zasięgu jest interaktywny
+        if (Physics.Raycast(ray, out RaycastHit hit, _interactionDistance, _interactableLayer))
+        {
+            // Sprawdzamy, czy trafiliśmy w obiekt implementujący IInteractable
+            IInteractable interactable = hit.collider.GetComponent<IInteractable>();
+            if (interactable != null)
             {
-                _moveDirection = (forward * vertical + right * horizontal + up) * currentMoveF;
-            }
-            else
-            {
-                _moveDirection = Vector3.down*MoveF;
+                interactable.Interact(); // Wykonaj interakcję
             }
         }
-        
     }
-    
+
     void HandleSprintParticles(bool isSpringing)
     {
         if (isSpringing)
@@ -102,6 +157,45 @@ public class MovementController : MonoBehaviour
             {
                 SprintParticles.Stop();
             }
+        }
+    }
+
+    // Obsługa wspinaczki po drabinie
+    private void ClimbLadder()
+    {
+        Rotation();
+        float verticalInput = Input.GetAxis("Vertical");
+        Vector3 climbDirection = new Vector3(0, verticalInput * ladderClimbSpeed, 0);
+
+        _body.linearVelocity = climbDirection; // Przemieszczenie gracza w pionie
+        _body.useGravity = false; // Wyłączenie grawitacji na drabinie
+
+        // Zatrzymanie wspinaczki, gdy gracz puści klawisz
+        if (verticalInput == 0)
+        {
+            _body.linearVelocity = Vector3.zero;
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            isOnLadder = false;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Ladder"))
+        {
+            isOnLadder = true;
+            _body.useGravity = false; // Wyłącz grawitację
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Ladder"))
+        {
+            isOnLadder = false;
+            _body.useGravity = true; // Włącz grawitację
         }
     }
 }
