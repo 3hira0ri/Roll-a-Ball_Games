@@ -1,7 +1,4 @@
-using UnityEditor.Rendering;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;  // Do pracy z UI
 
 public class Chest : MonoBehaviour, IInteractable
 {
@@ -60,33 +57,7 @@ public class Chest : MonoBehaviour, IInteractable
         }
     }
 
-    // Funkcja do wykonania akcji na przedmiocie
-    /*private void OnItemClicked(Button clickedButton)
-    {
 
-        // Tutaj mo¿esz wykonaæ odpowiedni¹ akcjê dla przedmiotu
-        // np. dodaæ go do ekwipunku gracza
-        Debug.Log("Przedmiot klikniêty: " + clickedButton.name);
-        // Zak³adaj¹c, ¿e masz metodê w PlayerInventory do dodawania przedmiotu:
-        foreach(ItemSlot Item in Content.items)
-        {
-            if(Item.item.itemName == clickedButton.name)
-            {
-                if (Item.count == 1) { 
-                Content.items.Remove(Item);
-               // PlayerINV.inventory.AddItem(Item.item.itemType, Item.item.model);
-                return;
-            }else if(Item.count == 2)
-                {
-                    //Content.inventory.items.;
-                    PlayerINV.inventory.items.Add(Item);
-                    return;
-                }
-            }
-        }
-        //PlayerINV.inventory.AddItem(itemInstance, itemObject);
-    }
-*/
     private void Update()
     {
         // Umo¿liwienie zamkniêcia skrzyni przez naciœniêcie 'E'

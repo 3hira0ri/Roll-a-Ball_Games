@@ -9190,7 +9190,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 1fadfc61435a3c040a5948f848216100, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 1fadfc61435a3c040a5948f848216100, type: 3}
       propertyPath: m_TagString
@@ -9198,7 +9198,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 1fadfc61435a3c040a5948f848216100, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -15773,6 +15773,7 @@ GameObject:
   - component: {fileID: 1286468798}
   - component: {fileID: 1286468797}
   - component: {fileID: 1286468796}
+  - component: {fileID: 1286468799}
   m_Layer: 0
   m_Name: EndGame
   m_TagString: Interact
@@ -15796,6 +15797,7 @@ MonoBehaviour:
   - {fileID: 926981054}
   - {fileID: 559608031}
   - {fileID: 4999638384108502327}
+  game: {fileID: 1286468799}
 --- !u!65 &1286468797
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15832,6 +15834,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1286468799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1286468795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b06e26fdedd4884aa50801fffebc6ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1286566482
 PrefabInstance:
   m_ObjectHideFlags: 0

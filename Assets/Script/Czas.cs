@@ -22,6 +22,10 @@ public class Czas : MonoBehaviour
             startTime = Time.fixedUnscaledTime;
             isTimerRunning = true;
         }
+        else if(Player.GetComponent<Rigidbody>().isKinematic)
+        {
+            isTimerRunning = false;
+        }
 
     }
     private void FixedUpdate()

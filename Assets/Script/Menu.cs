@@ -1,14 +1,16 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
 public class Menu : MonoBehaviour
 {
-    public GameObject OptionsPanel;
-    public GameObject MenuMain;
+    [SerializeField] StartGame game;
+    [SerializeField] GameObject OptionsPanel;
+    [SerializeField] GameObject MenuMain;
+    [SerializeField] Quit exit;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void StartGame()
     {
-        Debug.Log("start");
-        SceneManager.LoadScene(1, LoadSceneMode.Single);
+        game.ChangeLevel(1);
     }
     public void settings(bool isActive)
     {
@@ -17,7 +19,6 @@ public class Menu : MonoBehaviour
     }
     public void Exit()
     {
-        Debug.Log("exit");
-        Application.Quit();
+        exit.exit();
     }
 }

@@ -1,19 +1,19 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static UnityEditor.Timeline.TimelinePlaybackControls;
-using UnityEngine.SocialPlatforms.Impl;
-using Unity.VisualScripting;
+
 public class NextLevel : MonoBehaviour
 {
-    public GameObject NextLevelButton, scorescounter;
-    public Text TextScore;
-    public Text WinText;
-    public int score = 0;
-    public Rigidbody body;
-    public GameObject Finished;
-    public int neededScore;
-    public GameObject[] collectible;
+    [SerializeField] GameObject NextLevelButton, scorescounter;
+    [SerializeField] Text TextScore;
+    [SerializeField] Text WinText;
+    [SerializeField] int score = 0;
+    [SerializeField] Rigidbody body;
+    [SerializeField] GameObject Finished;
+    [SerializeField] int neededScore;
+    [SerializeField] GameObject[] collectible;
+    [SerializeField] bool isSync=true;
+    [SerializeField] StartGame game;
     void Start()
     {
        collectible = GameObject.FindGameObjectsWithTag("Collectible");
@@ -21,16 +21,23 @@ public class NextLevel : MonoBehaviour
         {
             score.GetComponent<Collectible>().PickUpEvent += GiveScore;
         }
-
+        if (isSync)
+        {
+            neededScore = collectible.Length;
+        }
+        else
+        {
+            neededScore = 1;
+        }
     }
     public void GiveScore()
     {
         score++;
         TextScore.text = "Score: " + score;
     }
-    public void ChangeLevel(int a)
+    public void StartGame(int a)
     {
-        SceneManager.LoadScene(a, LoadSceneMode.Single);
+       game.ChangeLevel(a);
     }
     void Update()
     {

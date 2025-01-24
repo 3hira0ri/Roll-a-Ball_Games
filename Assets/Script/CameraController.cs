@@ -90,4 +90,15 @@ public class CameraController : MonoBehaviour
             transform.LookAt(_player.transform);
         }
     }
+    public void SyncCameraWithPlayer()
+    {
+        if (SelectedMode == CameraMode.FirstPerson)
+        {
+            transform.position = _player.transform.position + FirstPersonOffset;
+        }
+        else if (SelectedMode == CameraMode.ThirdPerson)
+        {
+            HandleThirdPersonCamera();
+        }
+    }
 }

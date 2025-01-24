@@ -687,7 +687,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 1, b: 0.067501545, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1339,6 +1339,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1801614098}
   - component: {fileID: 1801614097}
+  - component: {fileID: 1801614099}
+  - component: {fileID: 1801614100}
   m_Layer: 0
   m_Name: MenuHandler
   m_TagString: Untagged
@@ -1358,8 +1360,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2432465a44d06e349847eae52ee3c22c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  game: {fileID: 1801614099}
   OptionsPanel: {fileID: 1980336935}
   MenuMain: {fileID: 2042835022}
+  exit: {fileID: 1801614100}
 --- !u!4 &1801614098
 Transform:
   m_ObjectHideFlags: 0
@@ -1375,6 +1379,30 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1801614099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801614096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b06e26fdedd4884aa50801fffebc6ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1801614100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801614096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a34057850c55c7c4bae1ca76cc38e099, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1842645736
 GameObject:
   m_ObjectHideFlags: 0

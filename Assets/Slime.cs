@@ -19,6 +19,7 @@ public class Slime : MonoBehaviour
     private Transform player;
     private float waitTimer = 0f;
     private bool isGrounded = false;
+    private float originalSpeed; // Dodane - przechowanie oryginalnej prêdkoœci
 
     private enum State
     {
@@ -45,6 +46,7 @@ public class Slime : MonoBehaviour
         }
 
         navAgent.enabled = false; // Wy³¹cz NavMeshAgent na starcie
+        originalSpeed = navAgent.speed; // Zapisz oryginaln¹ prêdkoœæ
     }
 
     private void Update()
@@ -74,7 +76,6 @@ public class Slime : MonoBehaviour
         }
     }
 
-
     private void CheckIfGrounded()
     {
         isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.1f, groundLayer);
@@ -102,7 +103,7 @@ public class Slime : MonoBehaviour
         else if (currentState == State.Escaping && distanceToPlayer >= detectionRadius * 1.5f)
         {
             currentState = State.Wandering;
-            navAgent.speed /= escapeSpeedMultiplier; // Przywrócenie normalnej prêdkoœci
+            navAgent.speed = originalSpeed; // Przywróæ oryginaln¹ prêdkoœæ
         }
     }
 
@@ -128,7 +129,7 @@ public class Slime : MonoBehaviour
 
         if (NavMesh.SamplePosition(escapeTarget, out NavMeshHit hit, detectionRadius, NavMesh.AllAreas))
         {
-            navAgent.speed *= escapeSpeedMultiplier; // Przyspieszenie ucieczki
+            navAgent.speed = originalSpeed * escapeSpeedMultiplier; // U¿yj oryginalnej prêdkoœci
             navAgent.SetDestination(hit.position);
         }
     }
@@ -149,16 +150,6 @@ public class Slime : MonoBehaviour
         }
     }
 
-/*    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, wanderRadius);
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, detectionRadius);
- 
-    }*/
-
     private void OnParticleCollision(GameObject other)
     {
         // Sprawdzenie, czy cz¹steczki pochodz¹ z odpowiedniego systemu
@@ -171,8 +162,7 @@ public class Slime : MonoBehaviour
 
     public void ReduceSpeed(float duration)
     {
-        
-        if (navAgent != null)
+        if (navAgent != null && navAgent.speed > 1f)
         {
             Debug.Log("prêdkoœæ przed: " + navAgent.speed);
             navAgent.speed /= 2; // Zmniejsz prêdkoœæ o po³owê
@@ -186,7 +176,7 @@ public class Slime : MonoBehaviour
         yield return new WaitForSeconds(delay);
         if (navAgent != null)
         {
-            navAgent.speed *= 2; // Przywróæ prêdkoœæ po czasie
+            navAgent.speed = originalSpeed; // Przywróæ oryginaln¹ prêdkoœæ
         }
     }
-    }
+}

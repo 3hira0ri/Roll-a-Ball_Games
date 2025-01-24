@@ -16,9 +16,8 @@ MonoBehaviour:
   items:
   - item: {fileID: 11400000, guid: ba30b15cdd20fb944a63ac4db50b3762, type: 2}
     count: 2
-  - item: {fileID: 11400000, guid: 57cf2ec92c3aec54da4d3cde3a00bf3a, type: 2}
+  - item: {fileID: 11400000, guid: a9dd5abcf069ea24c9085b9adaa9a162, type: 2}
     count: 2
-  - item: {fileID: 11400000, guid: e8c34ade6408ada4886acc629b873b18, type: 2}
+  - item: {fileID: 11400000, guid: ab2a5b67f5a769949a8943508692efc3, type: 2}
     count: 2
-  - item: {fileID: 11400000, guid: ba30b15cdd20fb944a63ac4db50b3762, type: 2}
-    count: 2
+  stack: 2

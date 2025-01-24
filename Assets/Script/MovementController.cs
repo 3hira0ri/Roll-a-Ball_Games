@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class MovementController : MonoBehaviour
 {
-    [SerializeField] ParticleSystem SprintParticles = null;
     [SerializeField] AudioSource AudioSource;
     GameObject _playerCamera;
     Rigidbody _body;
@@ -15,8 +14,8 @@ public class MovementController : MonoBehaviour
     [SerializeField] private LayerMask _interactableLayer;      // Warstwa dla obiektów interaktywnych
     [Header("Ladder Settings")]
     [SerializeField] private float ladderClimbSpeed = 5.0f;    // Prędkość wspinaczki po drabinie
-    private bool isOnLadder = false;                          // Czy gracz jest na drabinie
-
+    public bool isOnLadder = false;                          // Czy gracz jest na drabinie
+    [SerializeField] bool isInventory = false;
     void Awake()
     {
         _playerCamera = GameObject.FindGameObjectWithTag("MainCamera");
@@ -54,7 +53,7 @@ public class MovementController : MonoBehaviour
         {
             TryInteract();
         }
-        if (Input.GetKeyDown(KeyCode.I)) // Klawisz Ekwipunku (I)
+        if (Input.GetKeyDown(KeyCode.I) && isInventory) // Klawisz Ekwipunku (I)
         {
             if (!Cursor.visible)
             {
@@ -96,17 +95,6 @@ public class MovementController : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift))
         {
             currentMoveF *= SprintMultiplier;
-            if (SprintParticles)
-            {
-                HandleSprintParticles(true);
-            }
-        }
-        else
-        {
-            if (SprintParticles)
-            {
-                HandleSprintParticles(false);
-            }
         }
 
         // Ustaw ruch poziomy
@@ -138,24 +126,6 @@ public class MovementController : MonoBehaviour
             if (interactable != null)
             {
                 interactable.Interact(); // Wykonaj interakcję
-            }
-        }
-    }
-
-    void HandleSprintParticles(bool isSpringing)
-    {
-        if (isSpringing)
-        {
-            if (!SprintParticles.isPlaying)
-            {
-                SprintParticles.Play();
-            }
-        }
-        else
-        {
-            if (SprintParticles.isPlaying)
-            {
-                SprintParticles.Stop();
             }
         }
     }

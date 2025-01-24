@@ -7,7 +7,11 @@ public class Gun : MonoBehaviour
     [Header("Fire Settings")]
     [SerializeField] private float fireRate = 2; // how fast shoot
     private float fireCooldown = 0f;
-
+    public AudioSource AudioSource;
+    private void Start()
+    {
+        AudioSource = GetComponent<AudioSource>();
+    }
     private void Update()
     {
         // Obs�uga strza�u
@@ -21,6 +25,7 @@ public class Gun : MonoBehaviour
 
     private void Fire()
     {
+        AudioSource.Play();
         _lance.Play();
     }
 }
